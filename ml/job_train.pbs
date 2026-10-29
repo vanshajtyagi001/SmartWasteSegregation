@@ -1,0 +1,40 @@
+#!/bin/bash
+#PBS -N waste_seg_train                 # Job name shown in qstat
+#PBS -o train_output.log                # Standard output log
+#PBS -e train_error.log                 # Standard error log
+#PBS -q gpu                             # Submit to the GPU queue (confirmed available on this cluster)
+#PBS -l select=1:ncpus=4:ngpus=1        # 1 chunk: 4 CPUs (for OpenMP preprocessing) + 1 GPU
+#PBS -l walltime=02:00:00               # Max wall-clock time (HH:MM:SS), adjust as needed
+
+# -----------------------------------------------------------------
+# PBS batch script to train the Smart Waste Segregation CNN on the
+# JIIT HPC cluster's GPU queue.
+#
+# Submit with:  qsub job_train.pbs
+# Check status: qstat -u $USER
+# View output:  cat train_output.log   (once job finishes or while running)
+# Cancel job:   qdel <job_id>
+# -----------------------------------------------------------------
+
+echo "Job started on $(hostname) at $(date)"
+
+# Move into the directory qsub was called from (PBS starts jobs in $HOME by default)
+cd $PBS_O_WORKDIR
+
+# Load required modules -- confirmed available via `module avail`
+module load cuda12.2/toolkit/12.2.2 2>/dev/null || echo "[WARN] Could not load cuda12.2/toolkit module, continuing anyway"
+module load anaconda3/anaconda 2>/dev/null || echo "[WARN] Could not load anaconda3 module, continuing anyway"
+
+# Activate the existing conda environment (created during initial setup)
+source activate waste-seg-env
+
+# Set OpenMP threads to match requested CPU cores
+export OMP_NUM_THREADS=4
+
+# Install dependencies (safe to leave here; skips already-installed packages)
+pip install -r requirements.txt
+
+# Run training script -- CUDA will be auto-detected by config.py
+python3 train.py
+
+echo "Job finished at $(date)"

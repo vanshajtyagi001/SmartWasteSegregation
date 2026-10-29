@@ -1,0 +1,22 @@
+# Dependencies
+node_modules/
+frontend/node_modules/
+backend/node_modules/
+
+# Python cache & environments
+__pycache__/
+*.py[cod]
+venv/
+.env
+
+# Dataset & Heavy Model Checkpoints
+ml/dataset/
+ml/checkpoints/*.pth
+
+# Uploaded webcam test captures
+backend/uploads/*.jpg
+backend/uploads/*.png
+!backend/uploads/.gitkeep
+
+# macOS system files
+.DS_Store

@@ -1,0 +1,14 @@
+.bin-icon-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 14px;
+}
+
+.bin-label {
+  margin-top: 10px;
+  font-weight: 600;
+  font-family: var(--font-heading);
+  color: var(--color-forest);
+  font-size: 1.05rem;
+}

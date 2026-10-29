@@ -1,0 +1,131 @@
+/* global.css
+   -----------
+   Design tokens and base styles for the Smart Waste Segregation app.
+   Single green identity: deep forest for structure/nav, a confident
+   mid-green for actions, soft mint tint for backgrounds. Text uses a
+   dark green-black (not pure black) to stay tied to the palette.
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Inter:wght@400;500;600&display=swap');
+
+:root {
+  /* Color tokens */
+  --color-forest: #1b4332;
+  --color-forest-dark: #10281c;
+  --color-primary: #2d7a4f;
+  --color-primary-hover: #236640;
+  --color-primary-light: #eef6f0;
+  --color-bg: #f6f9f7;
+  --color-surface: #ffffff;
+  --color-text: #16241c;
+  --color-text-muted: #5c6b62;
+  --color-border: #d8e6dc;
+  --color-danger: #c0392b;
+  --color-danger-hover: #a93226;
+
+  /* Bin colors (functional, not decorative -- kept as-is) */
+  --bin-plastic: #eab308;
+  --bin-paper: #2563eb;
+  --bin-glass: #16a34a;
+  --bin-metal: #6b7280;
+
+  /* Type */
+  --font-heading: 'Poppins', 'Segoe UI', sans-serif;
+  --font-body: 'Inter', 'Segoe UI', Arial, sans-serif;
+
+  /* Elevation */
+  --shadow-sm: 0 1px 3px rgba(16, 40, 28, 0.08);
+  --shadow-md: 0 4px 16px rgba(16, 40, 28, 0.10);
+  --shadow-lg: 0 12px 32px rgba(16, 40, 28, 0.14);
+
+  /* Radius */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.5;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-heading);
+  color: var(--color-forest);
+  letter-spacing: -0.01em;
+}
+
+a {
+  color: var(--color-primary);
+}
+
+button {
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.95rem;
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 12px 24px;
+  background-color: var(--color-primary);
+  color: white;
+  transition: background-color 0.18s ease, transform 0.08s ease;
+}
+
+button:hover:not(:disabled) {
+  background-color: var(--color-primary-hover);
+}
+
+button:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+button:disabled {
+  background-color: #a9c9b4;
+  cursor: not-allowed;
+}
+
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+.error-text {
+  color: var(--color-danger);
+  font-weight: 600;
+}
+
+/* Reusable category chip -- the app's signature visual element,
+   used identically in History and Prediction to identify a waste type */
+.category-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.category-chip::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: currentColor;
+}
+
+.chip-plastic { background-color: #fef3c7; color: #92600a; }
+.chip-paper   { background-color: #dbeafe; color: #1d4ed8; }
+.chip-glass   { background-color: #dcfce7; color: #15803d; }
+.chip-metal   { background-color: #e5e7eb; color: #4b5563; }
